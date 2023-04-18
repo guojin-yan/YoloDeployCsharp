@@ -23,11 +23,19 @@ namespace ResultSharp
         public List<float> scores = new List<float>();
         // 预测框
         public List<Rect> rects = new List<Rect>();
+        public List<Mat> masks = new List<Mat>();
 
         public void add(float score, Rect rect, string cla) {
             scores.Add(score);
             rects.Add(rect);
             classes.Add(cla);
+        }
+        public void add(float score, Rect rect, string cla, Mat mask)
+        {
+            scores.Add(score);
+            rects.Add(rect);
+            classes.Add(cla);
+            masks.Add(mask);
         }
     }
 }

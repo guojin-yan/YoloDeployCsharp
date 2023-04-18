@@ -10,9 +10,9 @@ namespace ResultSharp
 {
     public class DetectionResult: ResultBase
     {
-        public DetectionResult(string path, float[] factors, float score_threshold=0.25f, float nms_threshold=0.45f) {
+        public DetectionResult(string path, float[] scales, float score_threshold=0.25f, float nms_threshold=0.5f) {
             read_class_names(path);
-            this.factors = factors;
+            this.scales = scales;
             this.score_threshold = score_threshold;
             this.nms_threshold = nms_threshold;
         }
@@ -52,15 +52,16 @@ namespace ResultSharp
                     float cy = result_data.At<float>(i, 1);
                     float ow = result_data.At<float>(i, 2);
                     float oh = result_data.At<float>(i, 3);
-                    int x = (int)((cx - 0.5 * ow) * this.factors[0]);
-                    int y = (int)((cy - 0.5 * oh) * this.factors[1]);
-                    int width = (int)(ow * this.factors[0]);
-                    int height = (int)(oh * this.factors[1]);
+                    int x = (int)((cx - 0.5 * ow) * this.scales[0]);
+                    int y = (int)((cy - 0.5 * oh) * this.scales[1]);
+                    int width = (int)(ow * this.scales[0]);
+                    int height = (int)(oh * this.scales[1]);
                     Rect box = new Rect();
                     box.X = x;
                     box.Y = y;
                     box.Width = width;
                     box.Height = height;
+                    Console.WriteLine(box);
 
                     position_boxes.Add(box);
                     class_ids.Add(max_classId_point.X);
@@ -87,6 +88,7 @@ namespace ResultSharp
             // 将识别结果绘制到图片上
             for (int i = 0; i < result.length; i++)
             {
+                Console.WriteLine(result.rects[i]);
                 Cv2.Rectangle(image, result.rects[i], new Scalar(0, 0, 255), 2, LineTypes.Link8);
                 Cv2.Rectangle(image, new Point(result.rects[i].TopLeft.X, result.rects[i].TopLeft.Y - 20),
                     new Point(result.rects[i].BottomRight.X, result.rects[i].TopLeft.Y), new Scalar(0, 255, 255), -1);

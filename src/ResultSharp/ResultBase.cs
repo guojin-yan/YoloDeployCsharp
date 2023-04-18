@@ -4,8 +4,8 @@
     {
         // 识别结果类型
         public string[] class_names;
-        // 图片放缩比例
-        public float[] factors;
+        // 图片信息  缩放比例h, 缩放比例h,,height, width
+        public float[] scales;
         // 置信度阈值
         public float score_threshold;
         // 非极大值抑制阈值
