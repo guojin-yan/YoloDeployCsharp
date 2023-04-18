@@ -1,4 +1,6 @@
 
+using CommonSharp;
+
 namespace ModelDeployPlatform
 {
     internal static class Program
@@ -11,6 +13,7 @@ namespace ModelDeployPlatform
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
+            ConsoleShow.AllocConsole();
             Console.Title = "Êý¾ÝÏÔÊ¾";
             ApplicationConfiguration.Initialize();
             //Application.Run(new FormEngineConvert());

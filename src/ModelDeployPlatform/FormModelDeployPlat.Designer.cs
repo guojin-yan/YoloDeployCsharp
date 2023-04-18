@@ -37,6 +37,7 @@
             this.btn_choose_model_path = new System.Windows.Forms.Button();
             this.rb_openvino = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rb_opencv = new System.Windows.Forms.RadioButton();
             this.rb_onnx = new System.Windows.Forms.RadioButton();
             this.rb_tensorrt = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -50,6 +51,7 @@
             this.btn_choose_claspath = new System.Windows.Forms.Button();
             this.btn_choose_testimage = new System.Windows.Forms.Button();
             this.btn_model_deploy = new System.Windows.Forms.Button();
+            this.rb_paddle = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -133,21 +135,33 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.rb_opencv);
+            this.groupBox1.Controls.Add(this.rb_paddle);
             this.groupBox1.Controls.Add(this.rb_onnx);
             this.groupBox1.Controls.Add(this.rb_tensorrt);
             this.groupBox1.Controls.Add(this.rb_openvino);
             this.groupBox1.Font = new System.Drawing.Font("思源黑体 CN", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox1.Location = new System.Drawing.Point(26, 116);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(553, 68);
+            this.groupBox1.Size = new System.Drawing.Size(698, 68);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "推理设备";
             // 
+            // rb_opencv
+            // 
+            this.rb_opencv.AutoSize = true;
+            this.rb_opencv.Location = new System.Drawing.Point(598, 30);
+            this.rb_opencv.Name = "rb_opencv";
+            this.rb_opencv.Size = new System.Drawing.Size(89, 27);
+            this.rb_opencv.TabIndex = 6;
+            this.rb_opencv.Text = "OpenCV";
+            this.rb_opencv.UseVisualStyleBackColor = true;
+            // 
             // rb_onnx
             // 
             this.rb_onnx.AutoSize = true;
-            this.rb_onnx.Location = new System.Drawing.Point(343, 30);
+            this.rb_onnx.Location = new System.Drawing.Point(433, 30);
             this.rb_onnx.Name = "rb_onnx";
             this.rb_onnx.Size = new System.Drawing.Size(141, 27);
             this.rb_onnx.TabIndex = 6;
@@ -157,7 +171,7 @@
             // rb_tensorrt
             // 
             this.rb_tensorrt.AutoSize = true;
-            this.rb_tensorrt.Location = new System.Drawing.Point(179, 30);
+            this.rb_tensorrt.Location = new System.Drawing.Point(138, 30);
             this.rb_tensorrt.Name = "rb_tensorrt";
             this.rb_tensorrt.Size = new System.Drawing.Size(102, 27);
             this.rb_tensorrt.TabIndex = 6;
@@ -190,22 +204,22 @@
             // rb_yolov8_seg
             // 
             this.rb_yolov8_seg.AutoSize = true;
+            this.rb_yolov8_seg.Checked = true;
             this.rb_yolov8_seg.Location = new System.Drawing.Point(179, 30);
             this.rb_yolov8_seg.Name = "rb_yolov8_seg";
             this.rb_yolov8_seg.Size = new System.Drawing.Size(112, 27);
             this.rb_yolov8_seg.TabIndex = 6;
+            this.rb_yolov8_seg.TabStop = true;
             this.rb_yolov8_seg.Text = "Yolov8-seg";
             this.rb_yolov8_seg.UseVisualStyleBackColor = true;
             // 
             // rb_yolov8_det
             // 
             this.rb_yolov8_det.AutoSize = true;
-            this.rb_yolov8_det.Checked = true;
             this.rb_yolov8_det.Location = new System.Drawing.Point(18, 30);
             this.rb_yolov8_det.Name = "rb_yolov8_det";
             this.rb_yolov8_det.Size = new System.Drawing.Size(111, 27);
             this.rb_yolov8_det.TabIndex = 6;
-            this.rb_yolov8_det.TabStop = true;
             this.rb_yolov8_det.Text = "Yolov8-det";
             this.rb_yolov8_det.UseVisualStyleBackColor = true;
             // 
@@ -276,6 +290,16 @@
             this.btn_model_deploy.UseVisualStyleBackColor = true;
             this.btn_model_deploy.Click += new System.EventHandler(this.btn_model_deploy_Click);
             // 
+            // rb_paddle
+            // 
+            this.rb_paddle.AutoSize = true;
+            this.rb_paddle.Location = new System.Drawing.Point(246, 30);
+            this.rb_paddle.Name = "rb_paddle";
+            this.rb_paddle.Size = new System.Drawing.Size(158, 27);
+            this.rb_paddle.TabIndex = 6;
+            this.rb_paddle.Text = "Paddle inference";
+            this.rb_paddle.UseVisualStyleBackColor = true;
+            // 
             // FormModelDeployPlat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -335,5 +359,7 @@
         private Button btn_choose_claspath;
         private Button btn_choose_testimage;
         private Button btn_model_deploy;
+        private RadioButton rb_opencv;
+        private RadioButton rb_paddle;
     }
 }
