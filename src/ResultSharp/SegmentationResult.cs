@@ -10,20 +10,36 @@ namespace ResultSharp
 {
     public class SegmentationResult: ResultBase
     {
-        public SegmentationResult(string path, float[] scales, float score_threshold = 0.25f, float nms_threshold = 0.5f)
+        /// <summary>
+        /// 结果处理类构造
+        /// </summary>
+        /// <param name="path">识别类别文件地址</param>
+        /// <param name="scales">缩放比例</param>
+        /// <param name="score_threshold">分数阈值</param>
+        /// <param name="nms_threshold">非极大值抑制阈值</param>
+        public SegmentationResult(string path, float[] scales, float score_threshold = 0.3f, float nms_threshold = 0.5f)
         {
             read_class_names(path);
             this.scales = scales;
             this.score_threshold = score_threshold;
             this.nms_threshold = nms_threshold;
         }
-
+        /// <summary>
+        /// sigmoid函数
+        /// </summary>
+        /// <param name="a"></param>
+        /// <returns></returns>
         private float sigmoid(float a)
         {
             float b = 1.0f / (1.0f + (float)Math.Exp(-a));
             return b;
         }
-
+        /// <summary>
+        /// 结果处理
+        /// </summary>
+        /// <param name="detect">目标检测输出</param>
+        /// <param name="proto">语义分割输出</param>
+        /// <returns></returns>
         public Result process_result(float[] detect, float[] proto)
         {
             Mat detect_data = new Mat(116, 8400, MatType.CV_32F, detect);
@@ -157,7 +173,12 @@ namespace ResultSharp
 
             return re_result;
         }
-
+        /// <summary>
+        /// 结果绘制
+        /// </summary>
+        /// <param name="result">识别结果</param>
+        /// <param name="image">绘制图片</param>
+        /// <returns></returns>
         public Mat draw_result(Result result, Mat image)
         {
             Mat masked_img = new Mat();

@@ -8,15 +8,26 @@ using System.Threading.Tasks;
 
 namespace ResultSharp
 {
-    public class PoseResult:ResultBase
+    public class PoseResult : ResultBase
     {
-        public PoseResult( float[] scales, float score_threshold = 0.25f, float nms_threshold = 0.5f)
+        /// <summary>
+        /// 结果处理类构造
+        /// </summary>
+        /// <param name="scales">缩放比例</param>
+        /// <param name="score_threshold">分数阈值</param>
+        /// <param name="nms_threshold">非极大值抑制阈值</param>
+        public PoseResult(float[] scales, float score_threshold = 0.25f, float nms_threshold = 0.5f)
         {
             this.scales = scales;
             this.score_threshold = score_threshold;
             this.nms_threshold = nms_threshold;
         }
-        public Result process_result(float[] result) 
+        /// <summary>
+        /// 结果处理
+        /// </summary>
+        /// <param name="result">模型预测输出</param>
+        /// <returns>模型识别结果</returns>
+        public Result process_result(float[] result)
         {
             Mat result_data = new Mat(56, 8400, MatType.CV_32F, result);
             result_data = result_data.T();
@@ -28,7 +39,7 @@ namespace ResultSharp
             for (int i = 0; i < result_data.Rows; i++)
             {
 
- 
+
                 // 获取识别框和关键点信息
                 if (result_data.At<float>(i, 4) > 0.25)
                 {
@@ -46,7 +57,7 @@ namespace ResultSharp
                     box.Y = y;
                     box.Width = width;
                     box.Height = height;
-                    Mat pose_mat= result_data.Row(i).ColRange(5, 56);
+                    Mat pose_mat = result_data.Row(i).ColRange(5, 56);
                     float[] pose_data = new float[51];
                     pose_mat.GetArray<float>(out pose_data);
                     PoseData pose = new PoseData(pose_data, this.scales);
@@ -67,13 +78,18 @@ namespace ResultSharp
             for (int i = 0; i < indexes.Length; i++)
             {
                 int index = indexes[i];
-                re_result.add(confidences[index], position_boxes[index], pose_datas[i]);
-                Console.WriteLine("rect: {0}, score: {1}", position_boxes[index], confidences[index]);
+                re_result.add(confidences[index], position_boxes[index], pose_datas[index]);
+                //Console.WriteLine("rect: {0}, score: {1}", position_boxes[index], confidences[index]);
             }
             return re_result;
 
         }
-
+        /// <summary>
+        /// 结果绘制
+        /// </summary>
+        /// <param name="result">识别结果</param>
+        /// <param name="image">绘制图片</param>
+        /// <returns></returns>
         public Mat draw_result(Result result, Mat image)
         {
 
@@ -91,7 +107,11 @@ namespace ResultSharp
             }
             return image;
         }
-
+        /// <summary>
+        /// 关键点结果绘制
+        /// </summary>
+        /// <param name="pose">关键点数据</param>
+        /// <param name="image"></param>
         public void draw_poses(PoseData pose, ref Mat image)
         {
             // 连接点关系
@@ -104,7 +124,7 @@ namespace ResultSharp
                 new Scalar(0, 85, 255), new Scalar(0, 0, 255), new Scalar(85, 0, 255), new Scalar(170, 0, 255),
                 new Scalar(255, 0, 255), new Scalar(255, 0, 170), new Scalar(255, 0, 85) };
             // 绘制阈值
-            double visual_thresh = 0.4;
+            double visual_thresh = 0.0;
             // 绘制关键点
             for (int p = 0; p < 17; p++)
             {
@@ -112,17 +132,18 @@ namespace ResultSharp
                 {
                     continue;
                 }
-                
+
                 Cv2.Circle(image, pose.point[p], 2, colors[p], -1);
+                //Console.WriteLine(pose.point[p]);
             }
             // 绘制
             for (int p = 0; p < 17; p++)
             {
-                if (pose.score[edgs[p, 0]] < visual_thresh || pose.score[edgs[p, 1]] < visual_thresh)
-                {
-                    continue;
-                }
-
+                //if (pose.score[edgs[p, 0]] < visual_thresh || pose.score[edgs[p, 1]] < visual_thresh)
+                //{
+                //    continue;
+                //}
+                
                 float[] point_x = new float[] { pose.point[edgs[p, 0]].X, pose.point[edgs[p, 1]].X };
                 float[] point_y = new float[] { pose.point[edgs[p, 0]].Y, pose.point[edgs[p, 1]].Y };
 
@@ -138,3 +159,5 @@ namespace ResultSharp
         }
     }
 }
+
+

@@ -41,6 +41,7 @@
             this.rb_onnx = new System.Windows.Forms.RadioButton();
             this.rb_tensorrt = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.rb_yolov8_cls = new System.Windows.Forms.RadioButton();
             this.rb_yolov8_pose = new System.Windows.Forms.RadioButton();
             this.rb_yolov8_seg = new System.Windows.Forms.RadioButton();
             this.rb_yolov8_det = new System.Windows.Forms.RadioButton();
@@ -51,7 +52,7 @@
             this.btn_choose_claspath = new System.Windows.Forms.Button();
             this.btn_choose_testimage = new System.Windows.Forms.Button();
             this.btn_model_deploy = new System.Windows.Forms.Button();
-            this.rb_paddle = new System.Windows.Forms.RadioButton();
+            this.btn_engine_conv = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -136,14 +137,13 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.rb_opencv);
-            this.groupBox1.Controls.Add(this.rb_paddle);
             this.groupBox1.Controls.Add(this.rb_onnx);
             this.groupBox1.Controls.Add(this.rb_tensorrt);
             this.groupBox1.Controls.Add(this.rb_openvino);
             this.groupBox1.Font = new System.Drawing.Font("思源黑体 CN", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox1.Location = new System.Drawing.Point(26, 116);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(698, 68);
+            this.groupBox1.Size = new System.Drawing.Size(592, 68);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "推理设备";
@@ -151,7 +151,7 @@
             // rb_opencv
             // 
             this.rb_opencv.AutoSize = true;
-            this.rb_opencv.Location = new System.Drawing.Point(598, 30);
+            this.rb_opencv.Location = new System.Drawing.Point(485, 30);
             this.rb_opencv.Name = "rb_opencv";
             this.rb_opencv.Size = new System.Drawing.Size(89, 27);
             this.rb_opencv.TabIndex = 6;
@@ -161,7 +161,7 @@
             // rb_onnx
             // 
             this.rb_onnx.AutoSize = true;
-            this.rb_onnx.Location = new System.Drawing.Point(433, 30);
+            this.rb_onnx.Location = new System.Drawing.Point(302, 30);
             this.rb_onnx.Name = "rb_onnx";
             this.rb_onnx.Size = new System.Drawing.Size(141, 27);
             this.rb_onnx.TabIndex = 6;
@@ -171,7 +171,7 @@
             // rb_tensorrt
             // 
             this.rb_tensorrt.AutoSize = true;
-            this.rb_tensorrt.Location = new System.Drawing.Point(138, 30);
+            this.rb_tensorrt.Location = new System.Drawing.Point(162, 30);
             this.rb_tensorrt.Name = "rb_tensorrt";
             this.rb_tensorrt.Size = new System.Drawing.Size(102, 27);
             this.rb_tensorrt.TabIndex = 6;
@@ -180,36 +180,47 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.rb_yolov8_cls);
             this.groupBox2.Controls.Add(this.rb_yolov8_pose);
             this.groupBox2.Controls.Add(this.rb_yolov8_seg);
             this.groupBox2.Controls.Add(this.rb_yolov8_det);
             this.groupBox2.Font = new System.Drawing.Font("思源黑体 CN", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox2.Location = new System.Drawing.Point(26, 208);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(553, 68);
+            this.groupBox2.Size = new System.Drawing.Size(625, 68);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "推理模型";
             // 
+            // rb_yolov8_cls
+            // 
+            this.rb_yolov8_cls.AutoSize = true;
+            this.rb_yolov8_cls.Location = new System.Drawing.Point(328, 30);
+            this.rb_yolov8_cls.Name = "rb_yolov8_cls";
+            this.rb_yolov8_cls.Size = new System.Drawing.Size(106, 27);
+            this.rb_yolov8_cls.TabIndex = 6;
+            this.rb_yolov8_cls.Text = "Yolov8-cls";
+            this.rb_yolov8_cls.UseVisualStyleBackColor = true;
+            // 
             // rb_yolov8_pose
             // 
             this.rb_yolov8_pose.AutoSize = true;
-            this.rb_yolov8_pose.Location = new System.Drawing.Point(343, 30);
+            this.rb_yolov8_pose.Checked = true;
+            this.rb_yolov8_pose.Location = new System.Drawing.Point(497, 30);
             this.rb_yolov8_pose.Name = "rb_yolov8_pose";
             this.rb_yolov8_pose.Size = new System.Drawing.Size(122, 27);
             this.rb_yolov8_pose.TabIndex = 6;
+            this.rb_yolov8_pose.TabStop = true;
             this.rb_yolov8_pose.Text = "Yolov8-pose";
             this.rb_yolov8_pose.UseVisualStyleBackColor = true;
             // 
             // rb_yolov8_seg
             // 
             this.rb_yolov8_seg.AutoSize = true;
-            this.rb_yolov8_seg.Checked = true;
             this.rb_yolov8_seg.Location = new System.Drawing.Point(179, 30);
             this.rb_yolov8_seg.Name = "rb_yolov8_seg";
             this.rb_yolov8_seg.Size = new System.Drawing.Size(112, 27);
             this.rb_yolov8_seg.TabIndex = 6;
-            this.rb_yolov8_seg.TabStop = true;
             this.rb_yolov8_seg.Text = "Yolov8-seg";
             this.rb_yolov8_seg.UseVisualStyleBackColor = true;
             // 
@@ -282,7 +293,7 @@
             // btn_model_deploy
             // 
             this.btn_model_deploy.Font = new System.Drawing.Font("思源黑体 CN", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btn_model_deploy.Location = new System.Drawing.Point(164, 415);
+            this.btn_model_deploy.Location = new System.Drawing.Point(410, 426);
             this.btn_model_deploy.Name = "btn_model_deploy";
             this.btn_model_deploy.Size = new System.Drawing.Size(115, 38);
             this.btn_model_deploy.TabIndex = 5;
@@ -290,15 +301,16 @@
             this.btn_model_deploy.UseVisualStyleBackColor = true;
             this.btn_model_deploy.Click += new System.EventHandler(this.btn_model_deploy_Click);
             // 
-            // rb_paddle
+            // btn_engine_conv
             // 
-            this.rb_paddle.AutoSize = true;
-            this.rb_paddle.Location = new System.Drawing.Point(246, 30);
-            this.rb_paddle.Name = "rb_paddle";
-            this.rb_paddle.Size = new System.Drawing.Size(158, 27);
-            this.rb_paddle.TabIndex = 6;
-            this.rb_paddle.Text = "Paddle inference";
-            this.rb_paddle.UseVisualStyleBackColor = true;
+            this.btn_engine_conv.Font = new System.Drawing.Font("思源黑体 CN", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btn_engine_conv.Location = new System.Drawing.Point(120, 426);
+            this.btn_engine_conv.Name = "btn_engine_conv";
+            this.btn_engine_conv.Size = new System.Drawing.Size(115, 38);
+            this.btn_engine_conv.TabIndex = 5;
+            this.btn_engine_conv.Text = "模 型 转 换";
+            this.btn_engine_conv.UseVisualStyleBackColor = true;
+            this.btn_engine_conv.Click += new System.EventHandler(this.btn_engine_conv_Click);
             // 
             // FormModelDeployPlat
             // 
@@ -307,6 +319,7 @@
             this.ClientSize = new System.Drawing.Size(1484, 1061);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.btn_engine_conv);
             this.Controls.Add(this.btn_model_deploy);
             this.Controls.Add(this.btn_choose_testimage);
             this.Controls.Add(this.btn_choose_claspath);
@@ -360,6 +373,7 @@
         private Button btn_choose_testimage;
         private Button btn_model_deploy;
         private RadioButton rb_opencv;
-        private RadioButton rb_paddle;
+        private RadioButton rb_yolov8_cls;
+        private Button btn_engine_conv;
     }
 }

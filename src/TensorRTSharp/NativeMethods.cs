@@ -9,7 +9,7 @@ namespace TensorRTSharp
 {
     internal class NativeMethods
     {
-        private const string tensorrt_dll_path = @"TensorRTSharpExterm.dll";
+        private const string tensorrt_dll_path = @"E:\Git_space\Csharp_deploy_Yolov8\src\Release\TensorRTSharpExterm.dll";
 
         [DllImport(tensorrt_dll_path, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
         public extern static void onnx_to_engine(string onnx_file_path, string engine_file_path, int type);

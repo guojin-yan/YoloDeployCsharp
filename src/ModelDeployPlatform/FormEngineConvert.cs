@@ -72,7 +72,10 @@ namespace ModelDeployPlatform
             ConsoleShow.AllocConsole();
             Thread model_conv = new Thread(() => {
                 Console.WriteLine("原始模型路径：" + tb_model_path.Text);
+                Console.WriteLine("输出模型路径：" + tb_output_path.Text);
+                Console.WriteLine("正在转换中·····" );
                 Nvinfer.onnx_to_engine(tb_model_path.Text, tb_output_path.Text, AccuracyFlag.kFP16);
+                Console.WriteLine("模型转换成功！！！");
             }
            );
 

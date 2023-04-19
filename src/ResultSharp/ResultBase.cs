@@ -10,11 +10,7 @@
         public float score_threshold;
         // 非极大值抑制阈值
         public float nms_threshold;
-
-
         public ResultBase() { }
-
-
         /// <summary>
         /// 读取本地识别结果类型文件到内存
         /// </summary>
@@ -35,3 +31,4 @@
 
     }
 }
+

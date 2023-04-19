@@ -10,13 +10,24 @@ namespace ResultSharp
 {
     public class DetectionResult: ResultBase
     {
+        /// <summary>
+        /// 结果处理类构造
+        /// </summary>
+        /// <param name="path">识别类别文件地址</param>
+        /// <param name="scales">缩放比例</param>
+        /// <param name="score_threshold">分数阈值</param>
+        /// <param name="nms_threshold">非极大值抑制阈值</param>
         public DetectionResult(string path, float[] scales, float score_threshold=0.25f, float nms_threshold=0.5f) {
             read_class_names(path);
             this.scales = scales;
             this.score_threshold = score_threshold;
             this.nms_threshold = nms_threshold;
         }
-
+        /// <summary>
+        /// 结果处理
+        /// </summary>
+        /// <param name="result">模型预测输出</param>
+        /// <returns>模型识别结果</returns>
         public Result process_result(float[] result)
         {
             Mat result_data = new Mat(84, 8400, MatType.CV_32F, result);
@@ -29,14 +40,6 @@ namespace ResultSharp
             // 预处理输出结果
             for (int i = 0; i < result_data.Rows; i++)
             {
-                // 获取置信值
-                //float confidence = result_data.At<float>(i, 4);
-                //if (confidence < this.score_threshold)
-                //{
-                //    continue;
-                //}
-                //Console.WriteLine(confidence);
-
                 Mat classes_scores = result_data.Row(i).ColRange(4, 84);//GetArray(i, 5, classes_scores);
                 Point max_classId_point, min_classId_point;
                 double max_score, min_score;
@@ -47,7 +50,6 @@ namespace ResultSharp
                 // 获取识别框信息
                 if (max_score > 0.25)
                 {
-                    //Console.WriteLine(max_score);
                     float cx = result_data.At<float>(i, 0);
                     float cy = result_data.At<float>(i, 1);
                     float ow = result_data.At<float>(i, 2);
@@ -82,6 +84,12 @@ namespace ResultSharp
             }
             return re_result;
         }
+        /// <summary>
+        /// 结果绘制
+        /// </summary>
+        /// <param name="result">识别结果</param>
+        /// <param name="image">绘制图片</param>
+        /// <returns></returns>
         public Mat draw_result(Result result, Mat image) {
 
             // 将识别结果绘制到图片上
@@ -100,3 +108,4 @@ namespace ResultSharp
 
     }
 }
+

@@ -1,10 +1,260 @@
-# Yolov8结果处理方法
+# 【Yolov8】基于C#和OpenVINO部署Yolov8全系列模型
 
-Yolov8模型目前已经提供了目标检测、语义分割、姿态识别以及分类四种应用，为了处理不同的模型输出结果，此处构建了Yolov8结果处理类，用于处理Yolov8的模型预测结果。
+# 项目介绍
 
-## 1. 结果类: Result
+&emsp;  该项目主要基于OpenVINO™模型部署套件，在C#平台部署Yolov8模型，包括Yolov8系列的对象检测、图像分割、姿态识别和图像分类模型，实现C#平台推理加速Yolov8模型。
 
-&emsp;  结果类中主要存放模型预测结果，主要是已经处理后的预测结果，主要包括``classes``识别类别结果、``scores``识别分数结果、``rects``识别框结果、``masks``语义分割结果、``poses``关键点结果等五种结果，包含了目标检测、语义分割、姿态识别三种模型的输出结果。
+完整范例代码：
+
+​		GitHub平台：[guojin-yan/Csharp_deploy_Yolov8 (github.com)](https://github.com/guojin-yan/Csharp_deploy_Yolov8)
+
+# 1. OpenVINO™
+
+&emsp;  OpenVINO™是英特尔基于自身现有的硬件平台开发的一种可以加快高性能计算机视觉和深度学习视觉应用开发速度工具套件，用于快速开发应用程序和解决方案，以解决各种任务（包括人类视觉模拟、自动语音识别、自然语言处理和推荐系统等）。                               
+
+![image-20230419100139306](https://s2.loli.net/2023/04/19/6ZGkm8tnQUCjxXl.png)
+
+&emsp;  该工具套件基于最新一代的人工神经网络，包括卷积神经网络 (CNN)、递归网络和基于注意力的网络，可扩展跨英特尔® 硬件的计算机视觉和非视觉工作负载，从而最大限度地提高性能。它通过从边缘到云部署的高性能、人工智能和深度学习推理来为应用程序加速，并且允许直接异构执行。极大的提高计算机视觉、自动语音识别、自然语言处理和其他常见任务中的深度学习性能；使用使用流行的框架（如TensorFlow，PyTorch等）训练的模型；减少资源需求，并在从边缘到云的一系列英特尔®平台上高效部署；支持在Windows与Linux系统，且官方支持编程语言为Python与C++语言。
+
+&emsp;  OpenVINOTM 工具套件2022.1版于2022年3月22日正式发布，与以往版本相比发生了重大革新，提供预处理API函数、ONNX前端API、AUTO 设备插件，并且支持直接读入飞桨模型，在推理中中支持动态改变模型的形状，这极大地推动了不同网络的应用落地。2022年9月23日，OpenVINOTM 工具套件2022.2版推出，对2022.1进行了微调，以包括对英特尔最新 CPU 和离散 GPU 的支持，以实现更多的人工智能创新和机会。
+
+# 2. Yolov8模型
+
+&emsp;  由Ultralytics开发的Ultralytics YOLOv8是一种尖端的，最先进的（SOTA）模型，它建立在以前的YOLO版本成功的基础上，并引入了新功能和改进，以进一步提高性能和灵活性。YOLOv8 设计为快速、准确且易于使用，使其成为各种对象检测、图像分割和图像分类任务的绝佳选择。
+
+&emsp;  YOLOv8是YOLO系列目标检测算法的最新版本，相比于之前的版本，YOLOv8具有更快的推理速度、更高的精度、更加易于训练和调整、更广泛的硬件支持以及原生支持自定义数据集等优势。这些优势使得YOLOv8成为了目前业界最流行和成功的目标检测算法之一。
+
+<img width="1024" src="https://user-images.githubusercontent.com/26833433/212094133-6bb8c21c-3d47-41df-a512-81c5931054ae.png">
+
+## 2.1 安装转换插件
+
+### 安装ultralytics
+
+```python
+pip install ultralytics
+```
+
+###  安装ONNX
+
+导出ONNX格式模型要求插件
+
+```
+pip install onnx
+```
+
+### 安装OpenVINO
+
+导出IR模型要求插件
+
+```shell
+pip install openvino-dev
+```
+
+
+
+## 2.2 获取Yolov8部署模型
+
+### Detection
+
+**下载模型：**
+
+```shell
+wget https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.pt
+```
+
+**模型转换—ONNX**
+
+```shell
+yolo export model=yolov8s.pt imgsz=640 format=onnx opset=12
+```
+
+### Segmentation
+
+**下载模型：**
+
+```
+wget https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8s-seg.pt
+```
+
+**模型转换—ONNX**
+
+```shell
+yolo export model=yolov8s-seg.pt imgsz=640 format=onnx opset=12
+```
+
+### Classification
+
+**下载模型：**
+
+```shell
+wget https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8s-cls.pt
+```
+
+**模型转换—ONNX**
+
+```shell
+yolo export model=yolov8s-cls.pt imgsz=640 format=onnx opset=12
+```
+
+### Pose
+
+**下载模型：**
+
+```shell
+wget https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8s-pose.pt
+```
+
+**模型转换—ONNX**
+
+```shell
+yolo export model=yolov8s-pose.pt imgsz=640 format=onnx opset=12
+```
+
+# 3.OpenVinoSharp安装
+
+&emsp;    官方发行的[OpenVINO™](www.openvino.ai)未提供C#编程语言接口，因此在使用时无法实现在C#中利用[OpenVINO™](www.openvino.ai)进行模型部署。在该项目中，利用动态链接库功能，调用官方依赖库，实现在C#中部署深度学习模型，为方便使用，在该项目中提供了NuGet包方便使用，为了方便大家再此基础上进行开发，该项目提供了详细的技术文档。
+
+<img title="更新日志" src="https://s2.loli.net/2023/01/26/LdbeOYGgwZvHcBQ.png" alt="" width="300">
+
+
+
+## 3.1 OpenVINO安装
+
+&emsp;OpenVINO安装，请参考[openvino_installation.md](.\docs\openvino_installation.md)安装指导文档。
+
+## 3.2 OpenVinoSharp源码
+
+- **获取OpenVinoSharp项目源码****
+
+```
+GitHub:
+git clone https://github.com/guojin-yan/OpenVinoSharp.git
+Gitee:
+git clone https://gitee.com/guojin-yan/OpenVinoSharp.git
+```
+
+- **添加项目引用**
+
+&emsp;   ``OpenVinoSharp``项目主要包含``OpenVinoSharpExterm`` C++ 接口项目和``OpenVinoSharp`` C# 类项目，将该项目添加到当前解决中，并增加对``OpenVinoSharp`` C# 类项目的引用即可。
+
+&emsp;   由于不同电脑安装的OpenVino位置不同，因此在使用中可能会获取不到依赖项，因此建议此处按照OpenVino位置重新配置和编译``OpenVinoSharpExterm`` C++ 接口项目，C++ 项目配置参考[【OpenVINO】OpenVINO 2022.1更新2022.3教程_椒颜皮皮虾྅的博客-CSDN博客](https://blog.csdn.net/Grape_yan/article/details/128772065)
+
+## 3.3 OpenVinoSharp NuGet包安装
+
+- **（1）下载NuGet包**
+
+&emsp;使用Visual Studio自带的NuGet管理包，搜索OpenVinoSharp.win，找到对应的包，并将其安装到项目中。
+
+<img title="nuget" src="https://s2.loli.net/2023/02/09/vpkBefE3bSlGuVU.png" alt="" width="500">
+
+- **（2）复制依赖项**
+
+&emsp;  由于项目依赖较多的外部依赖项，因此为了方便使用，此处提供了所需的依赖。
+
+&emsp;  打开下载的NuGet下载路径，路径一般为``C:\Users\(用户名)\.nuget\packages\``，并找到``openvinosharp.win``，将``external lib``文件夹中的所有文件复制到程序运行目录中。
+
+<img title="nuget" src="https://s2.loli.net/2023/04/19/EriWbyYL6sXSmlF.png" alt="" width="500">
+
+# 4. Yolov8 detection
+
+## 4.1 模型推理
+
+&emsp;  基于OpenVINO 和C#同步推理代码的关键片段如下所示：
+
+```c#
+// 加载推理模型
+Core core = new Core(model_path, "CPU");
+// 处理输入数据
+Mat image = new Mat(image_path);
+int max_image_length = image.Cols > image.Rows ? image.Cols : image.Rows;
+Mat max_image = Mat.Zeros(new OpenCvSharp.Size(max_image_length, max_image_length), MatType.CV_8UC3);
+Rect roi = new Rect(0, 0, image.Cols, image.Rows);
+image.CopyTo(new Mat(max_image, roi));
+byte[] image_data = max_image.ImEncode(".bmp");
+//存储byte的长度
+ulong image_size = Convert.ToUInt64(image_data.Length);
+// 加载推理图片数据
+core.load_input_data("images", image_data, image_size, 1);
+// 模型推理
+core.infer();
+// 读取推理结果
+result_array = core.read_infer_result<float>("output0", 8400 * 84);
+// 处理推理结果
+DetectionResult result_pro = new DetectionResult(classer_path, factors);
+Mat result_image = result_pro.draw_result(result_pro.process_result(result_array), image.Clone());
+// 清除推理通道
+core.delet();
+```
+
+## 4.2 模型推理结果
+
+&emsp;  基于WinForm平台，此处搭建
+
+![image-20230419102219426](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20230419102219426.png)
+
+![image-20230419102255619](https://s2.loli.net/2023/04/19/KZ91eqF2DdmW3wE.png)
+
+
+
+# 5. Yolov8 segmentation
+
+```c#
+// 加载推理模型
+Nvinfer nvinfer = new Nvinfer(model_path);
+// 创建数据缓存
+nvinfer.creat_gpu_buffer();
+// 处理输入数据
+Mat image = new Mat(image_path);
+int max_image_length = image.Cols > image.Rows ? image.Cols : image.Rows;
+Mat max_image = Mat.Zeros(new OpenCvSharp.Size(max_image_length, max_image_length), MatType.CV_8UC3);
+Rect roi = new Rect(0, 0, image.Cols, image.Rows);
+image.CopyTo(new Mat(max_image, roi));
+byte[] image_data = max_image.ImEncode(".bmp");
+//存储byte的长度
+ulong image_size = Convert.ToUInt64(image_data.Length);
+// 加载推理图片数据
+nvinfer.infer();
+// 读取推理结果
+result_array = nvinfer.read_infer_result("output0", 8400 * 84);
+// 处理推理结果
+DetectionResult result_pro = new DetectionResult(classer_path, factors);
+Mat result_image = result_pro.draw_result(result_pro.process_result(result_array), image.Clone());
+nvinfer.delete();
+```
+
+
+
+![image-20230419105619461](https://s2.loli.net/2023/04/19/h9DAkYb5MQBZpa6.png)
+
+![image-20230419105652579](https://s2.loli.net/2023/04/19/HTyLGcXKO6vEJPM.png)
+
+# 6. Yolov8 Classification
+
+
+
+
+
+![image-20230419105729202](https://s2.loli.net/2023/04/19/pxQ8VytickEDl3P.png)
+
+
+
+![image-20230419105745570](https://s2.loli.net/2023/04/19/OjpL2mwJB8HSlVK.png)
+
+# 7. Yolov8 Pose
+
+
+
+
+
+![image-20230419105906820](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20230419105906820.png)
+
+![image-20230419111011999](https://s2.loli.net/2023/04/19/GbyFJ4TEMpHcilP.png)
+
+# 8. 结果处理
+
+##  8.1 结果类: Result
+
+ &emsp;  结果类中主要存放模型预测结果，主要是已经处理后的预测结果，主要包括``classes``识别类别结果、``scores``识别分数结果、``rects``识别框结果、``masks``语义分割结果、``poses``关键点结果等五种结果，包含了目标检测、语义分割、姿态识别三种模型的输出结果。
 
 ```c#
 public class Result
@@ -100,7 +350,11 @@ public struct PoseData
 }
 ```
 
-## 2. 结果处理基类：ResultBase
+## 
+
+## 8.2 预测结果处理
+
+#### 结果处理基类：ResultBase
 
 为了处理不同的模型结果，此处定义了一个模型结果处理基类，定义了一些结果处理常用成员以及方法。
 
@@ -134,7 +388,7 @@ public class ResultBase
 }
 ```
 
-## 3. 目标识别结果处理：DetectionResult
+#### 目标识别结果处理：DetectionResult
 
 &emsp;   该方法继承于``ResultBase``类，主要用于处理目标检测识别结果。
 
@@ -243,7 +497,7 @@ public class DetectionResult : ResultBase
 
 
 
-## 4. 语义分割结果处理：SegmentationResult
+#### 语义分割结果处理：SegmentationResult
 
 &emsp;   该方法继承于``ResultBase``类，主要用于处理语义分割识别结果。
 
@@ -435,7 +689,7 @@ public class SegmentationResult : ResultBase
 }
 ```
 
-## 5. 姿态识别结果处理：PoseResult
+#### 姿态识别结果处理：PoseResult
 
 &emsp;   该方法继承于``ResultBase``类，主要用于处理姿态识别识别结果。
 
@@ -593,7 +847,7 @@ public class PoseResult : ResultBase
 
 
 
-## 6. 分类结果处理：ClasResult
+#### 分类结果处理：ClasResult
 
 &emsp;   该方法继承于``ResultBase``类，主要用于处理分类识别结果。
 

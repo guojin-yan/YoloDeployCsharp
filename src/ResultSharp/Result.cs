@@ -31,9 +31,9 @@ namespace ResultSharp
         /// <summary>
         /// 物体检测
         /// </summary>
-        /// <param name="score"></param>
-        /// <param name="rect"></param>
-        /// <param name="cla"></param>
+        /// <param name="score">预测分数</param>
+        /// <param name="rect">识别框</param>
+        /// <param name="cla">识别类</param>
         public void add(float score, Rect rect, string cla) {
             scores.Add(score);
             rects.Add(rect);
@@ -42,10 +42,10 @@ namespace ResultSharp
         /// <summary>
         /// 物体分割
         /// </summary>
-        /// <param name="score"></param>
-        /// <param name="rect"></param>
-        /// <param name="cla"></param>
-        /// <param name="mask"></param>
+        /// <param name="score">预测分数</param>
+        /// <param name="rect">识别框</param>
+        /// <param name="cla">识别类</param>
+        /// <param name="mask">语义分割结果</param>
         public void add(float score, Rect rect, string cla, Mat mask)
         {
             scores.Add(score);
@@ -56,9 +56,9 @@ namespace ResultSharp
         /// <summary>
         /// 关键点预测
         /// </summary>
-        /// <param name="score"></param>
-        /// <param name="rect"></param>
-        /// <param name="pose"></param>
+        /// <param name="score">预测分数</param>
+        /// <param name="rect">识别框</param>
+        /// <param name="pose">关键点数据</param>
         public void add(float score, Rect rect, PoseData pose)
         {
             scores.Add(score);
@@ -84,3 +84,4 @@ namespace ResultSharp
         }
     }
 }
+
