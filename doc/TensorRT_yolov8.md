@@ -1,8 +1,8 @@
-# 【Yolov8】基于C#和OpenVINO部署Yolov8全系列模型
+# 【Yolov8】基于C#和TensorRT部署Yolov8全系列模型
 
 # 项目介绍
 
-&emsp;  该项目主要基于OpenVINO™模型部署套件，在C#平台部署Yolov8模型，包括Yolov8系列的对象检测、图像分割、姿态识别和图像分类模型，实现C#平台推理加速Yolov8模型。
+&emsp;  该项目主要基于TensorRT模型部署套件，在C#平台部署Yolov8模型，包括Yolov8系列的对象检测、图像分割、姿态识别和图像分类模型，实现C#平台推理加速Yolov8模型。
 
 完整范例代码：
 
@@ -12,13 +12,11 @@
 
 # 1. OpenVINO™
 
-&emsp;  OpenVINO™是英特尔基于自身现有的硬件平台开发的一种可以加快高性能计算机视觉和深度学习视觉应用开发速度工具套件，用于快速开发应用程序和解决方案，以解决各种任务（包括人类视觉模拟、自动语音识别、自然语言处理和推荐系统等）。                               
+&emsp;   NVIDIA®TensorRT的核心™ 是一个C++库，有助于在NVIDIA图形处理单元（GPU）上进行高性能推理。TensorRT采用一个经过训练的网络，该网络由一个网络定义和一组经过训练的参数组成，并生成一个高度优化的运行时引擎，为该网络执行推理。TensorRT通过C++和Python提供API，帮助通过网络定义API表达深度学习模型，或通过解析器加载预定义模型，从而使TensorRT能够在NVIDIA GPU上优化和运行它们。TensorRT应用了图优化、层融合等优化，同时还利用高度优化的内核的不同集合找到了该模型的最快实现。TensorRT还提供了一个运行时，您可以使用该运行时在开普勒一代以后的所有NVIDIA GPU上执行该网络。TensorRT还包括Tegra中引入的可选高速混合精度功能™ X1，并用Pascal™, Volta™, Turing™, and NVIDIA® Ampere GPU 架构。
 
-![image-20230419100139306](https://s2.loli.net/2023/04/19/6ZGkm8tnQUCjxXl.png)
+&emsp;   在推理过程中，基于 TensorRT 的应用程序的执行速度可比 CPU 平台的速度快 40 倍。借助 TensorRT，您可以优化在所有主要框架中训练的神经网络模型，精确校正低精度，并最终将模型部署到超大规模数据中心、嵌入式或汽车产品平台中。                         
 
-&emsp;  该工具套件基于最新一代的人工神经网络，包括卷积神经网络 (CNN)、递归网络和基于注意力的网络，可扩展跨英特尔® 硬件的计算机视觉和非视觉工作负载，从而最大限度地提高性能。它通过从边缘到云部署的高性能、人工智能和深度学习推理来为应用程序加速，并且允许直接异构执行。极大的提高计算机视觉、自动语音识别、自然语言处理和其他常见任务中的深度学习性能；使用使用流行的框架（如TensorFlow，PyTorch等）训练的模型；减少资源需求，并在从边缘到云的一系列英特尔®平台上高效部署；支持在Windows与Linux系统，且官方支持编程语言为Python与C++语言。
-
-&emsp;  OpenVINOTM 工具套件2022.1版于2022年3月22日正式发布，与以往版本相比发生了重大革新，提供预处理API函数、ONNX前端API、AUTO 设备插件，并且支持直接读入飞桨模型，在推理中中支持动态改变模型的形状，这极大地推动了不同网络的应用落地。2022年9月23日，OpenVINOTM 工具套件2022.2版推出，对2022.1进行了微调，以包括对英特尔最新 CPU 和离散 GPU 的支持，以实现更多的人工智能创新和机会。
+![img](https://s2.loli.net/2023/04/19/me9DrYwXtTkMVN4.png)
 
 # 2. Yolov8模型
 
@@ -112,50 +110,32 @@ wget https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8s-pose
 yolo export model=yolov8s-pose.pt imgsz=640 format=onnx opset=12
 ```
 
-# 3.OpenVinoSharp安装
+# 3. TensorRTSharp安装
 
-&emsp;    官方发行的[OpenVINO™](www.openvino.ai)未提供C#编程语言接口，因此在使用时无法实现在C#中利用[OpenVINO™](www.openvino.ai)进行模型部署。在该项目中，利用动态链接库功能，调用官方依赖库，实现在C#中部署深度学习模型，为方便使用，在该项目中提供了NuGet包方便使用，为了方便大家再此基础上进行开发，该项目提供了详细的技术文档。
+&emsp;    官方发行的 TensorRT未提供C#编程语言接口，因此在使用时无法实现在C#中利用 TensorRT进行模型部署。在该项目中，利用动态链接库功能，调用官方依赖库，实现在C#中部署深度学习模型。
 
-<img title="更新日志" src="https://s2.loli.net/2023/01/26/LdbeOYGgwZvHcBQ.png" alt="" width="300">
+<img title="更新日志" src="https://s2.loli.net/2023/04/11/Otsq6zAaZnwxP1U.png" alt="" width="300">
 
+## 4.1 TensorRT安装
 
+&emsp;   TensorRT依赖于CUDA加速，因此需要同时安装CUDA与TensorRT才可以使用，且CUDA与TensorRT版本之间需要对应，否者使用会出现较多问题，因此此处并未提供Nuget包，组要根据自己电脑配置悬着合适的版本安装后重新编译本项目源码，下面是TensorRT安装教程：[【TensorRT】NVIDIA TensorRT 安装 (Windows C++)_椒颜皮皮虾྅的博客-CSDN博客](https://blog.csdn.net/Grape_yan/article/details/127320959)
 
-## 3.1 OpenVINO安装
+## 4.2 TensorRTSharp 配置
 
-&emsp;OpenVINO安装，请参考[openvino_installation.md](.\docs\openvino_installation.md)安装指导文档。
-
-## 3.2 OpenVinoSharp源码
-
-- **获取OpenVinoSharp项目源码****
+- **获取TensorRTSharp项目源码****
 
 ```
 GitHub:
-git clone https://github.com/guojin-yan/OpenVinoSharp.git
+git clone https://github.com/guojin-yan/TensorRTSharp.git
 Gitee:
-git clone https://gitee.com/guojin-yan/OpenVinoSharp.git
+git clone https://gitee.com/guojin-yan/TensorRTSharp.git
 ```
 
 - **添加项目引用**
 
-&emsp;   ``OpenVinoSharp``项目主要包含``OpenVinoSharpExterm`` C++ 接口项目和``OpenVinoSharp`` C# 类项目，将该项目添加到当前解决中，并增加对``OpenVinoSharp`` C# 类项目的引用即可。
+&emsp;   ``TensorRTSharp``项目主要包含``TensorRTSharpExterm`` C++ 接口项目和``TensorRTSharp`` C# 类项目，将该项目添加到当前解决中，并增加对``TensorRTSharp`` C# 类项目的引用即可。
 
-&emsp;   由于不同电脑安装的OpenVino位置不同，因此在使用中可能会获取不到依赖项，因此建议此处按照OpenVino位置重新配置和编译``OpenVinoSharpExterm`` C++ 接口项目，C++ 项目配置参考[【OpenVINO】OpenVINO 2022.1更新2022.3教程_椒颜皮皮虾྅的博客-CSDN博客](https://blog.csdn.net/Grape_yan/article/details/128772065)
-
-## 3.3 OpenVinoSharp NuGet包安装
-
-- **（1）下载NuGet包**
-
-&emsp;使用Visual Studio自带的NuGet管理包，搜索OpenVinoSharp.win，找到对应的包，并将其安装到项目中。
-
-<img title="nuget" src="https://s2.loli.net/2023/02/09/vpkBefE3bSlGuVU.png" alt="" width="500">
-
-- **（2）复制依赖项**
-
-&emsp;  由于项目依赖较多的外部依赖项，因此为了方便使用，此处提供了所需的依赖。
-
-&emsp;  打开下载的NuGet下载路径，路径一般为``C:\Users\(用户名)\.nuget\packages\``，并找到``openvinosharp.win``，将``external lib``文件夹中的所有文件复制到程序运行目录中。
-
-<img title="nuget" src="https://s2.loli.net/2023/04/19/EriWbyYL6sXSmlF.png" alt="" width="500">
+&emsp;   由于不同电脑安装的TensorRT和CUDA位置不同，因此在使用中可能会获取不到依赖项，因此建议此处按照TensorRT和CUDA位置重新配置和编译``TensorRTSharpExterm`` C++ 接口项目，C++ 项目配置参考[【TensorRT】NVIDIA TensorRT 安装 (Windows C++)_椒颜皮皮虾྅的博客-CSDN博客](https://blog.csdn.net/Grape_yan/article/details/127320959)。
 
 # 4. Yolov8 detection
 
@@ -165,7 +145,9 @@ git clone https://gitee.com/guojin-yan/OpenVinoSharp.git
 
 ```c#
 // 加载推理模型
-Core core = new Core(model_path, "CPU");
+Nvinfer nvinfer = new Nvinfer(model_path);
+// 创建缓存区
+nvinfer.creat_gpu_buffer();
 // 处理输入数据
 Mat image = new Mat(image_path);
 int max_image_length = image.Cols > image.Rows ? image.Cols : image.Rows;
@@ -180,28 +162,26 @@ byte[] image_data = max_image.ImEncode(".bmp");
 //存储byte的长度
 ulong image_size = Convert.ToUInt64(image_data.Length);
 // 加载推理图片数据
-core.load_input_data("images", image_data, image_size, 1);
+nvinfer.load_image_data("images", image_data, image_size, BNFlag.Normal);
 // 模型推理
-core.infer();
+nvinfer.infer();
 // 读取推理结果
 float[] result_array = new float[8400 * 84];
-result_array = core.read_infer_result<float>("output0", 8400 * 84);
+result_array = nvinfer.read_infer_result("output0", 8400 * 84);
 // 处理推理结果
 DetectionResult result_pro = new DetectionResult(classer_path, factors);
 Mat result_image = result_pro.draw_result(result_pro.process_result(result_array), image.Clone());
 // 清除推理通道
-core.delet();
+nvinfer.delete();
 ```
 
 ## 4.2 模型推理结果
 
 &emsp;  基于WinForm平台，此处搭建了推理测试平台测试Yolov8 detection模型，结果如图所示：
 
-![image-20230419113130076](https://s2.loli.net/2023/04/19/LwRp4sQdiO9q1Vu.png)
+![image-20230419130759269](https://s2.loli.net/2023/04/19/pfSmLGN4cs2vqA3.png)
 
-![image-20230419102255619](https://s2.loli.net/2023/04/19/KZ91eqF2DdmW3wE.png)
-
-
+![image-20230419130823441](https://s2.loli.net/2023/04/19/MSqNQiVlZmXuCrA.png)
 
 # 5. Yolov8 segmentation
 
@@ -211,7 +191,9 @@ core.delet();
 
 ```c#
 // 加载推理模型
-Core core = new Core(model_path, "CPU");
+Nvinfer nvinfer = new Nvinfer(model_path);
+// 创建缓存区
+nvinfer.creat_gpu_buffer();
 // 处理输入数据
 Mat image = new Mat(image_path);
 int max_image_length = image.Cols > image.Rows ? image.Cols : image.Rows;
@@ -228,28 +210,28 @@ byte[] image_data = max_image.ImEncode(".bmp");
 //存储byte的长度
 ulong image_size = Convert.ToUInt64(image_data.Length);
 // 加载推理图片数据
-core.load_input_data("images", image_data, image_size, 1);
+nvinfer.load_image_data("images", image_data, image_size, BNFlag.Normal);
 // 模型推理
-core.infer();
+nvinfer.infer();
 // 读取推理结果
 float[] det_result_array = new float[8400 * 116];
 float[] proto_result_array = new float[32 * 160 * 160];
-det_result_array = core.read_infer_result<float>("output0", 8400 * 116);
-proto_result_array = core.read_infer_result<float>("output1", 32 * 160 * 160);
+det_result_array = nvinfer.read_infer_result("output0", 8400 * 116);
+proto_result_array = nvinfer.read_infer_result("output1", 32 * 160 * 160);
 // 处理推理结果
 SegmentationResult result_pro = new SegmentationResult(classer_path, factors);
 Mat result_image = result_pro.draw_result(result_pro.process_result(det_result_array, proto_result_array), image.Clone());
 // 清除推理通道
-core.delet();
+ nvinfer.delete();
 ```
 
 ## 5.2 模型推理结果
 
 &emsp;  基于WinForm平台，此处搭建了推理测试平台测试Yolov8 detection模型，结果如图所示：
 
-![image-20230419105619461](https://s2.loli.net/2023/04/19/h9DAkYb5MQBZpa6.png)
+![image-20230419131128807](https://s2.loli.net/2023/04/19/dklM3Su8QmWjw7L.png)
 
-![image-20230419105652579](https://s2.loli.net/2023/04/19/HTyLGcXKO6vEJPM.png)
+![image-20230419131110188](https://s2.loli.net/2023/04/19/cWi6rDUOhnyvdp5.png)
 
 # 6. Yolov8 Classification
 
@@ -259,7 +241,9 @@ core.delet();
 
 ```c#
 // 加载推理模型
-Core core = new Core(model_path, "CPU");
+Nvinfer nvinfer = new Nvinfer(model_path);
+// 创建缓存区
+nvinfer.creat_gpu_buffer();
 // 处理输入数据
 Mat image = new Mat(image_path);
 int max_image_length = image.Cols > image.Rows ? image.Cols : image.Rows;
@@ -271,18 +255,18 @@ byte[] image_data = max_image.ImEncode(".bmp");
 //存储byte的长度
 ulong image_size = Convert.ToUInt64(image_data.Length);
 // 加载推理图片数据
-core.load_input_data("images", image_data, image_size, 1);
+nvinfer.load_image_data("images", image_data, image_size, BNFlag.Normal);
 // 模型推理
-core.infer();
+nvinfer.infer();
 // 读取推理结果
 float[] result_array = new float[1000];
-result_array = core.read_infer_result<float>("output0", 1000);
+result_array = nvinfer.read_infer_result("output0", 1000);
 // 处理推理结果
 ClasResult result_pro = new ClasResult(classer_path);
 KeyValuePair<string, float> result_cls = result_pro.process_result(result_array);
 Mat result_image = result_pro.draw_result(result_cls, image.Clone());
 // 清除推理通道
-core.delet();
+nvinfer.delete();
 ```
 
 
@@ -291,11 +275,9 @@ core.delet();
 
 &emsp;  基于WinForm平台，此处搭建了推理测试平台测试Yolov8 Classification模型，结果如图所示：
 
-![image-20230419105729202](https://s2.loli.net/2023/04/19/pxQ8VytickEDl3P.png)
+![image-20230419131540418](https://s2.loli.net/2023/04/19/mWw5N9zYlHgGpqQ.png)
 
-
-
-![image-20230419105745570](https://s2.loli.net/2023/04/19/OjpL2mwJB8HSlVK.png)
+![image-20230419131612745](https://s2.loli.net/2023/04/19/PxXqEGMgtBHCi1h.png)
 
 # 7. Yolov8 Pose
 
@@ -305,7 +287,9 @@ core.delet();
 
 ```c#
 // 加载推理模型
-Core core = new Core(model_path, "CPU");
+Nvinfer nvinfer = new Nvinfer(model_path);
+// 创建缓存区
+nvinfer.creat_gpu_buffer();
 // 处理输入数据
 Mat image = new Mat(image_path);
 int max_image_length = image.Cols > image.Rows ? image.Cols : image.Rows;
@@ -321,17 +305,17 @@ byte[] image_data = max_image.ImEncode(".bmp");
 //存储byte的长度
 ulong image_size = Convert.ToUInt64(image_data.Length);
 // 加载推理图片数据
-core.load_input_data("images", image_data, image_size, 1);
+nvinfer.load_image_data("images", image_data, image_size, BNFlag.Normal);
 // 模型推理
-core.infer();
+nvinfer.infer();
 // 读取推理结果
 float[] result_array = new float[8400 * 56];
-result_array = core.read_infer_result<float>("output0", 8400 * 56);
+result_array = nvinfer.read_infer_result("output0", 8400 * 56);
 // 处理推理结果
 PoseResult result_pro = new PoseResult( factors);
 Mat result_image = result_pro.draw_result(result_pro.process_result(result_array), image.Clone());
 // 清除推理通道
-core.delet();
+nvinfer.delete();
 ```
 
 
@@ -340,9 +324,9 @@ core.delet();
 
 &emsp;  基于WinForm平台，此处搭建了推理测试平台测试Yolov8 Pose模型，结果如图所示：
 
-![image-20230419105906820](https://s2.loli.net/2023/04/19/EnMZH1LWV7yhBxj.png)
+![image-20230419131648537](https://s2.loli.net/2023/04/19/AIE68Brp9Klb1N3.png)
 
-![image-20230419111011999](https://s2.loli.net/2023/04/19/GbyFJ4TEMpHcilP.png)
+![image-20230419131710625](https://s2.loli.net/2023/04/19/krDmwgOVLHavIPl.png)
 
 # 8. 结果处理
 

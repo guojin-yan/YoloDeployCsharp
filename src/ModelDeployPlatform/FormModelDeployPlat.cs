@@ -288,8 +288,7 @@ namespace ModelDeployPlatform
             {
                 float[] det_result_array = new float[8400 * 116];
                 float[] proto_result_array = new float[32 * 160 * 160];
-                float[] factors = new float[2];
-                factors = new float[4];
+                float[] factors = new float[4];
                 factors[0] = factors[1] = (float)(max_image_length / 640.0);
                 factors[2] = image.Rows;
                 factors[3] = image.Cols;
@@ -617,11 +616,12 @@ namespace ModelDeployPlatform
 
 
             }
+            #endregion
+            #region
             else if (rb_yolov8_pose.Checked) // yolov8-det模型
             {
                 float[] result_array = new float[8400 * 56];
                 float[] factors = new float[2];
-                factors = new float[2];
                 factors[0] = factors[1] = (float)(max_image_length / 640.0);
 
 
