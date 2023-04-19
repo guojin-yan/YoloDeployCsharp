@@ -24,7 +24,7 @@ namespace ResultSharp
             return b;
         }
 
-        public Result process_resule(float[] detect, float[] proto)
+        public Result process_result(float[] detect, float[] proto)
         {
             Mat detect_data = new Mat(116, 8400, MatType.CV_32F, detect);
             Mat proto_data = new Mat(32, 25600, MatType.CV_32F, proto);
@@ -49,7 +49,7 @@ namespace ResultSharp
                 // 获取识别框信息
                 if (max_score > 0.25)
                 {
-                    Console.WriteLine(max_score);
+                    //Console.WriteLine(max_score);
 
                     Mat mask = detect_data.Row(i).ColRange(84, 116);
 

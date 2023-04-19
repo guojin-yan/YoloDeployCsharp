@@ -23,19 +23,64 @@ namespace ResultSharp
         public List<float> scores = new List<float>();
         // 预测框
         public List<Rect> rects = new List<Rect>();
+        // 分割区域
         public List<Mat> masks = new List<Mat>();
+        // 人体关键点
+        public List<PoseData> poses = new List<PoseData>();
 
+        /// <summary>
+        /// 物体检测
+        /// </summary>
+        /// <param name="score"></param>
+        /// <param name="rect"></param>
+        /// <param name="cla"></param>
         public void add(float score, Rect rect, string cla) {
             scores.Add(score);
             rects.Add(rect);
             classes.Add(cla);
         }
+        /// <summary>
+        /// 物体分割
+        /// </summary>
+        /// <param name="score"></param>
+        /// <param name="rect"></param>
+        /// <param name="cla"></param>
+        /// <param name="mask"></param>
         public void add(float score, Rect rect, string cla, Mat mask)
         {
             scores.Add(score);
             rects.Add(rect);
             classes.Add(cla);
             masks.Add(mask);
+        }
+        /// <summary>
+        /// 关键点预测
+        /// </summary>
+        /// <param name="score"></param>
+        /// <param name="rect"></param>
+        /// <param name="pose"></param>
+        public void add(float score, Rect rect, PoseData pose)
+        {
+            scores.Add(score);
+            rects.Add(rect);
+            poses.Add(pose);
+        }
+    }
+    /// <summary>
+    /// 人体关键点数据
+    /// </summary>
+    public struct PoseData {
+        public float[] score = new float[17];
+        public List<Point> point = new List<Point>();
+
+        public PoseData(float[] data, float[] scales) 
+        {
+            for (int i = 0; i < 17; i++) 
+            {
+                Point p = new Point((int)(data[3 * i] * scales[0]), (int)(data[3 * i + 1] * scales[1]));
+                this.point.Add(p);
+                this.score[i] = data[3 * i + 2];
+            }
         }
     }
 }

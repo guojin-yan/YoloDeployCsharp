@@ -17,7 +17,7 @@ namespace ResultSharp
             this.nms_threshold = nms_threshold;
         }
 
-        public Result process_resule(float[] result)
+        public Result process_result(float[] result)
         {
             Mat result_data = new Mat(84, 8400, MatType.CV_32F, result);
             result_data = result_data.T();
@@ -47,7 +47,7 @@ namespace ResultSharp
                 // 获取识别框信息
                 if (max_score > 0.25)
                 {
-                    Console.WriteLine(max_score);
+                    //Console.WriteLine(max_score);
                     float cx = result_data.At<float>(i, 0);
                     float cy = result_data.At<float>(i, 1);
                     float ow = result_data.At<float>(i, 2);
@@ -61,7 +61,6 @@ namespace ResultSharp
                     box.Y = y;
                     box.Width = width;
                     box.Height = height;
-                    Console.WriteLine(box);
 
                     position_boxes.Add(box);
                     class_ids.Add(max_classId_point.X);
@@ -88,7 +87,7 @@ namespace ResultSharp
             // 将识别结果绘制到图片上
             for (int i = 0; i < result.length; i++)
             {
-                Console.WriteLine(result.rects[i]);
+                //Console.WriteLine(result.rects[i]);
                 Cv2.Rectangle(image, result.rects[i], new Scalar(0, 0, 255), 2, LineTypes.Link8);
                 Cv2.Rectangle(image, new Point(result.rects[i].TopLeft.X, result.rects[i].TopLeft.Y - 20),
                     new Point(result.rects[i].BottomRight.X, result.rects[i].TopLeft.Y), new Scalar(0, 255, 255), -1);
