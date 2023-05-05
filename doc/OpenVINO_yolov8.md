@@ -122,7 +122,7 @@ yolo export model=yolov8s-pose.pt imgsz=640 format=onnx opset=12
 
 ## 3.1 OpenVINO安装
 
-&emsp;OpenVINO安装，请参考[openvino_installation.md](.\docs\openvino_installation.md)安装指导文档。
+&emsp;OpenVINO安装，请参考[openvino_installation.md](https://github.com/guojin-yan/OpenVinoSharp/blob/openvinosharp2.0/docs/openvino_installation.md)安装指导文档。
 
 ## 3.2 OpenVinoSharp源码
 
