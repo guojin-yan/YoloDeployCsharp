@@ -320,6 +320,7 @@ namespace YoloDeployPlatform
             pb_video.Value = 0;
             btn_start.Enabled = true;
             btn_stop.Enabled = true;
+            log.sum_time = new List<long>();
         }
         private void btn_start_Click(object sender, EventArgs e)
         {
@@ -352,9 +353,9 @@ namespace YoloDeployPlatform
                 video.Read(frame);
                 if (!frame.Empty())
                 {
-                    pb_video.Value = pb_video.Value + 4;
+                    pb_video.Value = pb_video.Value + 1;
                     pictureBox1.BackgroundImage = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(frame);
-                    Mat re_img = image_predict(frame);
+                    Mat re_img = image_predict(frame, true);
                     pictureBox2.BackgroundImage = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(re_img);
                     Cv2.WaitKey(1);
                 }
@@ -458,5 +459,10 @@ namespace YoloDeployPlatform
 
 
         #endregion
+
+        private void btn_time_Click(object sender, EventArgs e)
+        {
+            log.print();
+        }
     }
 }

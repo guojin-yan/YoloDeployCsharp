@@ -72,6 +72,7 @@
             this.btn_image_infer = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.pb_video = new System.Windows.Forms.ProgressBar();
+            this.btn_time = new System.Windows.Forms.Button();
             this.btn_stop = new System.Windows.Forms.Button();
             this.btn_start = new System.Windows.Forms.Button();
             this.btn_video_infer = new System.Windows.Forms.Button();
@@ -589,6 +590,7 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.pb_video);
+            this.tabPage2.Controls.Add(this.btn_time);
             this.tabPage2.Controls.Add(this.btn_stop);
             this.tabPage2.Controls.Add(this.btn_start);
             this.tabPage2.Controls.Add(this.btn_video_infer);
@@ -612,10 +614,22 @@
             this.pb_video.TabIndex = 12;
             this.pb_video.Value = 1;
             // 
+            // btn_time
+            // 
+            this.btn_time.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_time.Location = new System.Drawing.Point(462, 23);
+            this.btn_time.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_time.Name = "btn_time";
+            this.btn_time.Size = new System.Drawing.Size(64, 44);
+            this.btn_time.TabIndex = 11;
+            this.btn_time.Text = "Time";
+            this.btn_time.UseVisualStyleBackColor = true;
+            this.btn_time.Click += new System.EventHandler(this.btn_time_Click);
+            // 
             // btn_stop
             // 
             this.btn_stop.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_stop.Location = new System.Drawing.Point(367, 23);
+            this.btn_stop.Location = new System.Drawing.Point(316, 23);
             this.btn_stop.Margin = new System.Windows.Forms.Padding(2);
             this.btn_stop.Name = "btn_stop";
             this.btn_stop.Size = new System.Drawing.Size(114, 44);
@@ -627,7 +641,7 @@
             // btn_start
             // 
             this.btn_start.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_start.Location = new System.Drawing.Point(197, 23);
+            this.btn_start.Location = new System.Drawing.Point(164, 23);
             this.btn_start.Margin = new System.Windows.Forms.Padding(2);
             this.btn_start.Name = "btn_start";
             this.btn_start.Size = new System.Drawing.Size(114, 44);
@@ -639,7 +653,7 @@
             // btn_video_infer
             // 
             this.btn_video_infer.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_video_infer.Location = new System.Drawing.Point(41, 23);
+            this.btn_video_infer.Location = new System.Drawing.Point(24, 23);
             this.btn_video_infer.Margin = new System.Windows.Forms.Padding(2);
             this.btn_video_infer.Name = "btn_video_infer";
             this.btn_video_infer.Size = new System.Drawing.Size(114, 44);
@@ -929,6 +943,7 @@
         private System.Windows.Forms.Button btn_stop;
         private System.Windows.Forms.Button btn_start;
         private System.Windows.Forms.ProgressBar pb_video;
+        private System.Windows.Forms.Button btn_time;
     }
 }
 

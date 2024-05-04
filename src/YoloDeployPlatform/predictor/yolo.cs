@@ -67,6 +67,7 @@ namespace YoloDeployPlatform.predictor
                 sw.Stop();
                 m_log.print("Model infer successfull, spend time: " + sw.ElapsedMilliseconds + " ms;");
                 m_log.infer_time = sw.ElapsedMilliseconds;
+                m_log.sum_time.Add(sw.ElapsedMilliseconds);
             }
             else
             {
