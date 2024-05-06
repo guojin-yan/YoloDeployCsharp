@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Size = OpenCvSharp.Size;
+using Point = OpenCvSharp.Point;
 
 namespace YoloDeployPlatform.predictor
 {
