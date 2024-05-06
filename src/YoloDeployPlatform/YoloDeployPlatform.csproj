@@ -9,8 +9,7 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.Security" />
-    <Reference Include="System.Web" />
+
     <Reference Include="TensorRtSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\third_party\TensorRT-CSharp-API\src\TensorRtSharp\bin\Release\net8.0\TensorRtSharp.dll</HintPath>
