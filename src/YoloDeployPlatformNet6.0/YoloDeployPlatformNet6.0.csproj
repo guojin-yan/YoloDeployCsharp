@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>YoloDeployPlatform</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>YoloDeployPlatform</AssemblyName>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ML.OnnxRuntime.Managed" Version="1.17.3" />
+    <PackageReference Include="OpenCvSharp4" Version="4.9.0.20240103" />
+    <PackageReference Include="OpenCvSharp4.Extensions" Version="4.9.0.20240103" />
+    <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.9.0.20240103" />
+    <PackageReference Include="OpenVINO.CSharp.API" Version="2024.1.0.1" />
+    <PackageReference Include="OpenVINO.CSharp.API.Extensions" Version="1.0.2" />
+    <PackageReference Include="OpenVINO.CSharp.API.Extensions.OpenCvSharp" Version="1.0.6.1" />
+    <PackageReference Include="OpenVINO.runtime.win" Version="2024.1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="TensorRtSharp">
+      <HintPath>..\..\third_party\TensorRT-CSharp-API\src\TensorRtSharp\bin\Release\net6.0\TensorRtSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
