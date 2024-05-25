@@ -312,8 +312,6 @@ namespace YoloDeployPlatform
             pictureBox1.BackgroundImage = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(img);
             Mat re_img = image_predict(img);
             pictureBox2.BackgroundImage = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(re_img);
-            img.Dispose();
-            re_img.Dispose();
         }
 
         private void btn_video_infer_Click(object sender, EventArgs e)
@@ -360,10 +358,8 @@ namespace YoloDeployPlatform
                     pictureBox1.BackgroundImage = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(frame);
                     Mat re_img = image_predict(frame, true);
                     pictureBox2.BackgroundImage = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(re_img);
-                    re_img.Dispose();
                     Cv2.WaitKey(1);
                 }
-                frame.Dispose();
             }
         }
 

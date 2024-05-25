@@ -46,11 +46,11 @@ namespace YoloDeployPlatform.predictor
         float[] preprocess(Mat img)
         {
             m_image_size = new List<int> { (int)img.Size().Width, (int)img.Size().Height };
-            using (Mat mat = new Mat())
-            {
-                Cv2.CvtColor(img, mat, ColorConversionCodes.BGR2RGB);
-                return Permute.run(Normalize.run(Resize.letterbox_img(mat, (int)m_input_size[2], out m_factor), true));
-            }
+            Mat mat = new Mat();
+            Cv2.CvtColor(img, mat, ColorConversionCodes.BGR2RGB);
+            mat = Resize.letterbox_img(mat, (int)m_input_size[2], out m_factor);
+            mat = Normalize.run(mat, true);
+            return Permute.run(mat);
 
         }
 
