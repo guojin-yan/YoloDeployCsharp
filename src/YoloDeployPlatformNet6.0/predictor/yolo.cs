@@ -163,6 +163,10 @@ namespace YoloDeployPlatform.predictor
             {
                 return new YOLOWorld(model_path, engine, device, categ_nums, det_thresh, det_nms_thresh, input_size);
             }
+            else if (model_type == ModelType.YOLOv10Det)
+            {
+                return new YOLOv10Det(model_path, engine, device, categ_nums, det_thresh, det_nms_thresh, input_size);
+            }
             else
             {
                 throw new Exception("Model type error");

@@ -90,6 +90,7 @@
             label10 = new Label();
             chb_time = new CheckBox();
             chb_fps = new CheckBox();
+            rb_yolov10_det = new RadioButton();
             gb_engine.SuspendLayout();
             gb_model.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -186,6 +187,7 @@
             gb_model.Controls.Add(rb_yolo_world);
             gb_model.Controls.Add(rb_yolov_seg);
             gb_model.Controls.Add(rb_yolov9_det);
+            gb_model.Controls.Add(rb_yolov10_det);
             gb_model.Controls.Add(rb_yolov8_det);
             gb_model.Controls.Add(rb_yolov7_det);
             gb_model.Controls.Add(rb_yolov5_cls);
@@ -554,7 +556,7 @@
             tc_operate.Controls.Add(tabPage2);
             tc_operate.Font = new Font("Times New Roman", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             tc_operate.Location = new Point(3, 641);
-            tc_operate.Margin = new Padding(4, 4, 4, 4);
+            tc_operate.Margin = new Padding(4);
             tc_operate.Name = "tc_operate";
             tc_operate.SelectedIndex = 0;
             tc_operate.Size = new Size(637, 532);
@@ -567,9 +569,9 @@
             tabPage1.Controls.Add(tb_msg_image);
             tabPage1.Controls.Add(btn_image_infer);
             tabPage1.Location = new Point(4, 31);
-            tabPage1.Margin = new Padding(4, 4, 4, 4);
+            tabPage1.Margin = new Padding(4);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(4, 4, 4, 4);
+            tabPage1.Padding = new Padding(4);
             tabPage1.Size = new Size(629, 497);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "  Image  ";
@@ -597,9 +599,9 @@
             tabPage2.Controls.Add(label7);
             tabPage2.Controls.Add(tb_msg_video);
             tabPage2.Location = new Point(4, 31);
-            tabPage2.Margin = new Padding(4, 4, 4, 4);
+            tabPage2.Margin = new Padding(4);
             tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(4, 4, 4, 4);
+            tabPage2.Padding = new Padding(4);
             tabPage2.Size = new Size(629, 497);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "  Video  ";
@@ -608,7 +610,7 @@
             // pb_video
             // 
             pb_video.Location = new Point(46, 438);
-            pb_video.Margin = new Padding(4, 4, 4, 4);
+            pb_video.Margin = new Padding(4);
             pb_video.Name = "pb_video";
             pb_video.Size = new Size(538, 33);
             pb_video.Step = 1;
@@ -751,9 +753,9 @@
             groupBox1.Controls.Add(label10);
             groupBox1.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
             groupBox1.Location = new Point(20, 391);
-            groupBox1.Margin = new Padding(4, 4, 4, 4);
+            groupBox1.Margin = new Padding(4);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(4, 4, 4, 4);
+            groupBox1.Padding = new Padding(4);
             groupBox1.Size = new Size(434, 113);
             groupBox1.TabIndex = 9;
             groupBox1.TabStop = false;
@@ -810,7 +812,7 @@
             chb_time.CheckState = CheckState.Checked;
             chb_time.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point);
             chb_time.Location = new Point(472, 413);
-            chb_time.Margin = new Padding(4, 4, 4, 4);
+            chb_time.Margin = new Padding(4);
             chb_time.Name = "chb_time";
             chb_time.Size = new Size(138, 20);
             chb_time.TabIndex = 10;
@@ -825,13 +827,24 @@
             chb_fps.CheckState = CheckState.Checked;
             chb_fps.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point);
             chb_fps.Location = new Point(472, 467);
-            chb_fps.Margin = new Padding(4, 4, 4, 4);
+            chb_fps.Margin = new Padding(4);
             chb_fps.Name = "chb_fps";
             chb_fps.Size = new Size(90, 20);
             chb_fps.TabIndex = 10;
             chb_fps.Text = "FPS Draw";
             chb_fps.UseVisualStyleBackColor = true;
             chb_fps.CheckedChanged += chb_fps_CheckedChanged;
+            // 
+            // rb_yolov10_det
+            // 
+            rb_yolov10_det.AutoSize = true;
+            rb_yolov10_det.Location = new Point(407, 61);
+            rb_yolov10_det.Margin = new Padding(2, 3, 2, 3);
+            rb_yolov10_det.Name = "rb_yolov10_det";
+            rb_yolov10_det.Size = new Size(120, 23);
+            rb_yolov10_det.TabIndex = 3;
+            rb_yolov10_det.Text = "YOLOv10Det";
+            rb_yolov10_det.UseVisualStyleBackColor = true;
             // 
             // YoloDeployPlatform
             // 
@@ -949,5 +962,6 @@
         private System.Windows.Forms.Button btn_start;
         private System.Windows.Forms.ProgressBar pb_video;
         private System.Windows.Forms.Button btn_time;
+        private RadioButton rb_yolov10_det;
     }
 }

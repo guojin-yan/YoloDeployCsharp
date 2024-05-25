@@ -90,6 +90,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.chb_time = new System.Windows.Forms.CheckBox();
             this.chb_fps = new System.Windows.Forms.CheckBox();
+            this.rb_yolov10_det = new System.Windows.Forms.RadioButton();
             this.gb_engine.SuspendLayout();
             this.gb_model.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -186,6 +187,7 @@
             this.gb_model.Controls.Add(this.rb_yolo_world);
             this.gb_model.Controls.Add(this.rb_yolov_seg);
             this.gb_model.Controls.Add(this.rb_yolov9_det);
+            this.gb_model.Controls.Add(this.rb_yolov10_det);
             this.gb_model.Controls.Add(this.rb_yolov8_det);
             this.gb_model.Controls.Add(this.rb_yolov7_det);
             this.gb_model.Controls.Add(this.rb_yolov5_cls);
@@ -827,6 +829,17 @@
             this.chb_fps.UseVisualStyleBackColor = true;
             this.chb_fps.CheckedChanged += new System.EventHandler(this.chb_fps_CheckedChanged);
             // 
+            // rb_yolov10_det
+            // 
+            this.rb_yolov10_det.AutoSize = true;
+            this.rb_yolov10_det.Location = new System.Drawing.Point(391, 61);
+            this.rb_yolov10_det.Margin = new System.Windows.Forms.Padding(2);
+            this.rb_yolov10_det.Name = "rb_yolov10_det";
+            this.rb_yolov10_det.Size = new System.Drawing.Size(120, 23);
+            this.rb_yolov10_det.TabIndex = 3;
+            this.rb_yolov10_det.Text = "YOLOv10Det";
+            this.rb_yolov10_det.UseVisualStyleBackColor = true;
+            // 
             // YoloDeployPlatform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -944,6 +957,7 @@
         private System.Windows.Forms.Button btn_start;
         private System.Windows.Forms.ProgressBar pb_video;
         private System.Windows.Forms.Button btn_time;
+        private System.Windows.Forms.RadioButton rb_yolov10_det;
     }
 }
 

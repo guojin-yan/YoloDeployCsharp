@@ -46,11 +46,12 @@ namespace YoloDeployPlatform.predictor
         float[] preprocess(Mat img)
         {
             m_image_size = new List<int> { (int)img.Size().Width, (int)img.Size().Height };
-            Mat mat = new Mat();
-            Cv2.CvtColor(img, mat, ColorConversionCodes.BGR2RGB);
-            mat = Resize.letterbox_img(mat, (int)m_input_size[2], out m_factor);
-            mat = Normalize.run(mat, true);
-            return Permute.run(mat);
+            using (Mat mat = new Mat())
+            {
+                Cv2.CvtColor(img, mat, ColorConversionCodes.BGR2RGB);
+                return Permute.run(Normalize.run(Resize.letterbox_img(mat, (int)m_input_size[2], out m_factor), true));
+            }
+
         }
 
         List<float[]> infer(Mat img) 
@@ -162,6 +163,10 @@ namespace YoloDeployPlatform.predictor
             else if (model_type == ModelType.YOLOWorld)
             {
                 return new YOLOWorld(model_path, engine, device, categ_nums, det_thresh, det_nms_thresh, input_size);
+            }
+            else if (model_type == ModelType.YOLOv10Det)
+            {
+                return new YOLOv10Det(model_path, engine, device, categ_nums, det_thresh, det_nms_thresh, input_size);
             }
             else
             {

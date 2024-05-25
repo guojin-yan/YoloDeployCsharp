@@ -218,7 +218,8 @@ namespace YoloDeployPlatform
             EngineType engine_type = MyEnum.GetEngineType<EngineType>(engine_type_str);
 
 
-            if ((model_type == ModelType.YOLOv9Det) ||
+            if ((model_type == ModelType.YOLOv10Det) || 
+                (model_type == ModelType.YOLOv9Det) ||
                 (model_type == ModelType.YOLOv8Det) ||
                 (model_type == ModelType.YOLOv7Det) ||
                 (model_type == ModelType.YOLOv6Det) ||

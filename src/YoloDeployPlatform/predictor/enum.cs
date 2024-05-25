@@ -42,6 +42,7 @@ namespace YoloDeployPlatform.predictor
         YOLOv8Obb,
         YOLOv9Det,
         YOLOv9Seg,
-        YOLOWorld
+        YOLOWorld,
+        YOLOv10Det
     }
 }

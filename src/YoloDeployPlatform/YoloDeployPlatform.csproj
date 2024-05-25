@@ -122,6 +122,7 @@
   <ItemGroup>
     <Compile Include="log.cs" />
     <Compile Include="predictor\yolo-world.cs" />
+    <Compile Include="predictor\yolov10-det.cs" />
     <Compile Include="predictor\yolov5-cls.cs" />
     <Compile Include="predictor\yolov5-seg.cs" />
     <Compile Include="predictor\yolov8-cls.cs" />
