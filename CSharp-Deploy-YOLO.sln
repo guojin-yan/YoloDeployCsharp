@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YoloDeployPlatform", "src\Y
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YoloDeployPlatformNet6.0", "src\YoloDeployPlatformNet6.0\YoloDeployPlatformNet6.0.csproj", "{44CBFBA9-D04C-4654-895E-0376CE60837D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "demo", "demo", "{8F670634-1E07-428B-848F-173A7883809F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "yolo_openvino_demo", "demo\yolo_openvino_demo\yolo_openvino_demo.csproj", "{5782DF0B-D000-4B1F-BB42-96B15B05F42C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +25,16 @@ Global
 		{44CBFBA9-D04C-4654-895E-0376CE60837D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44CBFBA9-D04C-4654-895E-0376CE60837D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44CBFBA9-D04C-4654-895E-0376CE60837D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5782DF0B-D000-4B1F-BB42-96B15B05F42C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5782DF0B-D000-4B1F-BB42-96B15B05F42C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5782DF0B-D000-4B1F-BB42-96B15B05F42C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5782DF0B-D000-4B1F-BB42-96B15B05F42C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5782DF0B-D000-4B1F-BB42-96B15B05F42C} = {8F670634-1E07-428B-848F-173A7883809F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B7DED534-64CE-485E-BB5E-EAAD0854B0A2}
